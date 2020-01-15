@@ -3,13 +3,9 @@ from dataclasses import dataclass
 from typing import List
 import os
 import sys
-photosList = []
-
-pathToFile = os.getcwd() + "/QualificationRound2019.in/" + sys.argv[1]
 
 @dataclass
 class Photo:
-    allTagsCount = 0
     position: str
     tagsCount: int
     tags: List[str]
@@ -26,6 +22,14 @@ class Slide:
         pass
 
 
+def AverageTagsPerPhoto(photosList):    
+    return allTagsCount/len(photosList)
+
+
+photosList = []
+allTagsCount = 0
+
+pathToFile = os.getcwd() + "/QualificationRound2019.in/" + sys.argv[1]
 
 with open(pathToFile) as fileObject:
     photosCount = int(fileObject.readline())
@@ -37,7 +41,7 @@ with open(pathToFile) as fileObject:
         position = photo[0]
         
         photosList.append(Photo(position,tagsCount,[]))
-        Photo.allTagsCount += tagsCount
+        allTagsCount += tagsCount
        # print(f'Tags count: {tagsCount}')
         for j in range(tagsCount):
             tag = photo[j+2].rstrip()
@@ -49,5 +53,5 @@ with open(pathToFile) as fileObject:
    #print(f'Tags list: {x.tags}')
 
 print(f'Photos count: {len(photosList)}')
-print(f'Average tags per photo: {Photo.allTagsCount/len(photosList)}')
-print(f'All tags: {Photo.allTagsCount}')
+print(f'Average tags per photo: {AverageTagsPerPhoto(photosList)}')
+print(f'All tags: {allTagsCount}')
